@@ -1,1 +1,4 @@
-venv_akki/
+.env
+__pycache__/
+.venv/
+venv_akkiai/
