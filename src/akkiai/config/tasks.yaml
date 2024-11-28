@@ -73,7 +73,7 @@ creating_buyer_persona:
     Here's the information you'll be working with:
 
     <target_audience>
-    {{finding_target_audience.output}}
+    {{target_audience}}
     </target_audience>
 
     <business_details>
@@ -87,11 +87,11 @@ creating_buyer_persona:
     Now, you'll need to answer the following questions for B2B and B2C market:
 
     <questions>
-    {{creating_b2c_persona.output}}
+    {{b2b_persona_questions}}
     </questions>
 
     <questions>
-    {{creating_b2b_persona.output}}
+    {{b2c_persona_questions}}
     </questions>
 
     Approach the task as follows:
@@ -153,7 +153,12 @@ creating_buyer_persona:
 
 
   agent: BuyerPersonaAgent
-
+  inputs:
+    target_audience: "{{finding_target_audience.output}}"
+    business_details: "{{BUSINESS_DETAILS}}"
+    product_description: "{{PRODUCT_DESCRIPTION}}"
+    b2b_persona_questions: "{{creating_b2b_persona.output}}"
+    b2c_persona_questions: "{{creating_b2c_persona.output}}"
 #task3
 creating_b2c_persona:
 
@@ -405,6 +410,8 @@ analysing_stages_of_awareness:
 
 
   agent: StagesofAwarenessAgent
+  inputs:
+
 
 #task7
 
