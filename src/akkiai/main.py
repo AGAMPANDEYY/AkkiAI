@@ -59,3 +59,11 @@ def test():
 
     except Exception as e:
         raise Exception(f"An error occurred while replaying the crew: {e}")
+
+if __name__ =="__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python main.py [COMMAND] [OPTIONS]")
+        sys.exit(1)
+    command = sys.argv[1]
+    if command == "run":
+        run()

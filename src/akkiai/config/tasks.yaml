@@ -72,7 +72,7 @@ creating_buyer_persona:
     Here's the information you'll be working with:
 
     <target_audience>
-    {TARGET_AUDIENCE}
+    {{TARGET_AUDIENCE}}
     </target_audience>
 
     <business_details>
