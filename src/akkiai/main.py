@@ -17,7 +17,7 @@ def run():
     """
     inputs = {
         'BUSINESS_DETAILS': 'Business details',
-        'PRODUCT_DESCRIPTION': 'Product Description',
+        'PRODUCT_DESCRIPTION': 'Product Description'
     }
     Akkiai().crew().kickoff(inputs=inputs)
 
@@ -27,7 +27,8 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        "topic": "AI LLMs"
+        'BUSINESS_DETAILS': 'Business details',
+        'PRODUCT_DESCRIPTION': 'Product Description'
     }
     try:
         Akkiai().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
@@ -50,7 +51,8 @@ def test():
     Test the crew execution and returns the results.
     """
     inputs = {
-        "topic": "AI LLMs"
+        'BUSINESS_DETAILS': 'Business details',
+        'PRODUCT_DESCRIPTION': 'Product Description'
     }
     try:
         Akkiai().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)
