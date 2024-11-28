@@ -347,7 +347,7 @@ analysing_stages_of_awareness:
     Here is the information you'll be working with:
 
     <target_audience>
-    {{finding_target_audience.output}}
+    {{target_audience}}
     </target_audience>
 
     <buyer_persona>
@@ -416,6 +416,7 @@ analysing_stages_of_awareness:
 
   agent: StagesofAwarenessAgent
   inputs:
+    target_audience: "{{creating_target_audience.output}}"
     buyer_persona: "{{creating_buyer_persona.output}}"
     analysing_jtbd: "{{analysing_jtbd.output}}"
 
