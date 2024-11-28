@@ -73,7 +73,7 @@ creating_buyer_persona:
     Here's the information you'll be working with:
 
     <target_audience>
-    {{target_audience}}
+    - Target audience details will be provided from the output of the `finding_target_audience` task.
     </target_audience>
 
     <business_details>
@@ -86,13 +86,13 @@ creating_buyer_persona:
 
     Now, you'll need to answer the following questions for B2B and B2C market:
 
-    <questions>
-    {{b2b_persona_questions}}
-    </questions>
+    <B2B questions>
+    - B2B persona questions will be provided from the output of the `creating_b2b_persona` task.
+    </B2B questions>
 
-    <questions>
-    {{b2c_persona_questions}}
-    </questions>
+    <B2C questions>
+    - B2C persona questions will be provided from the output of the `creating_b2c_persona` task.
+    </B2C questions>
 
     Approach the task as follows:
 
@@ -287,11 +287,11 @@ analysing_jtbd:
     </product_description>
 
     <target_audience>
-    {{target_audience}}
+    - Target audience details will be provided from the output of the `finding_target_audience` task.
     </target_audience>
 
     <buyer_persona>
-    {{buyer_persona}}
+    - Buyer persona details will be provided from the output of the `creating_buyer_persona` task.
     </buyer_persona>
 
     The Jobs to be Done (JTBD) framework focuses on understanding the underlying motivations and desired outcomes that drive customers to "hire" a product or service. Instead of focusing solely on product features, JTBD emphasizes the progress that customers are trying to make in their lives.
@@ -347,15 +347,15 @@ analysing_stages_of_awareness:
     Here is the information you'll be working with:
 
     <target_audience>
-    {{target_audience}}
+    - Target audience details will be provided from the output of the `finding_target_audience` task.
     </target_audience>
 
     <buyer_persona>
-    {{buyer_persona}}
+    - Buyer persona details will be provided from the output of the `creating_buyer_persona` task.
     </buyer_persona>
 
     <motivations_outcomes>
-    {{analysing_jtbd}}
+    - JTBD motivation framework details will be provided from the output of the 'analysing_jtbd' task
     </motivations_outcomes>
 
     <business_details>
@@ -429,7 +429,7 @@ analysing_TG:
   description: >
     You will be given multiple documents, each containing information about Target Groups (TGs), Persona analysis, and Jobs-to-be-done analysis, and stages of awareness of the customer. Additionally, you will receive business details and product/services details. Your task is to analyze this information, compare the documents, and provide recommendations for lead generation targeting.
 
-    Documents are Attached.
+    Documents are Attached. All the relevant informations for Target Group analysis are the outputs of all the previous task outputs.
 
     Here are the business details:
     <business_details>
@@ -440,6 +440,20 @@ analysing_TG:
     <product_description>
     {{PRODUCT_DESCRIPTION}}
     </product_description>
+
+    Here are the previous tasks outputs:
+    <target_audience>
+    -Target audience details will be provided from the output of the `finding_target_audience` task.
+    </target_audience>
+    <buyer_persona>
+    - Buyer persona details will be provided from the output of the `creating_buyer_persona' task.
+    </buyer_persona>
+    <analysing_jtbd>
+    - JTBD analysis details will be provided from the output of the `analysing_jtbd' task.
+    </analysing_jtbd>
+    <stages_of_awareness>
+    - Stages of awareness analysis details will be provided from the output of the `analysing_stages_of_awareness' task.
+    </stages_of_awareness>
 
     Please follow these steps:
 
@@ -485,5 +499,10 @@ analysing_TG:
     If you need to make any assumptions, state them clearly in your analysis.
 
   agent: TGAnalysisAgent
+  inputs:
+    target_audience: "{{finding_target_audience.output}}"
+    buyer_persona: "{{creating_buyer_persona.output}}"
+    analysing_jtbd: "{{analysing_jtbd.output}}"
+    stages_of_awareness: "{{analysing_stages_of_awareness.output}}"
 
 
