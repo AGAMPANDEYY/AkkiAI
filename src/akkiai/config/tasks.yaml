@@ -68,11 +68,12 @@ creating_buyer_persona:
 
   description: > 
     You are tasked with creating a detailed buyer persona based on the given information and answering specific questions about the target audience. 
-    This persona will help in understanding the ideal customer and tailoring marketing strategies effectively.
+    This persona will help in understanding the ideal customer and tailoring marketing strategies effectively. The target
+    audience details will be given by the output of finding_target_audience task.
     Here's the information you'll be working with:
 
     <target_audience>
-    {{TARGET_AUDIENCE}}
+    {{finding_target_audience.output}}
     </target_audience>
 
     <business_details>
@@ -83,10 +84,14 @@ creating_buyer_persona:
     {{PRODUCT_DESCRIPTION}}
     </product_description>
 
-    Now, you'll need to answer the following questions:
+    Now, you'll need to answer the following questions for B2B and B2C market:
 
     <questions>
-    {{QUESTIONS FOR B2B or B2C}}
+    {{creating_b2c_persona.output}}
+    </questions>
+
+    <questions>
+    {{creating_b2b_persona.output}}
     </questions>
 
     Approach the task as follows:
@@ -277,11 +282,11 @@ analysing_jtbd:
     </product_description>
 
     <target_audience>
-    {{TARGET_AUDIENCE}}
+    {{finding_target_audience.output}}
     </target_audience>
 
     <buyer_persona>
-    {{BUYER_PERSONA}}
+    {{creating_buyer_persona.output}}
     </buyer_persona>
 
     The Jobs to be Done (JTBD) framework focuses on understanding the underlying motivations and desired outcomes that drive customers to "hire" a product or service. Instead of focusing solely on product features, JTBD emphasizes the progress that customers are trying to make in their lives.
@@ -332,15 +337,15 @@ analysing_stages_of_awareness:
     Here is the information you'll be working with:
 
     <target_audience>
-    {{TARGET_AUDIENCE}}
+    {{finding_target_audience.output}}
     </target_audience>
 
     <buyer_persona>
-    {{BUYER_PERSONA}}
+    {{creating_buyer_persona.output}}
     </buyer_persona>
 
     <motivations_outcomes>
-    {{MOTIVATIONS_OUTCOMES}}
+    {{analysing_jtbd.output}}
     </motivations_outcomes>
 
     <business_details>
@@ -423,7 +428,7 @@ analysing_TG:
     Please follow these steps:
 
     1. Analyze each document:
-      - Review the TG information
+      - Review the TG information 
       - Examine the Persona analysis
       - Study the Jobs-to-be-done analysis
 

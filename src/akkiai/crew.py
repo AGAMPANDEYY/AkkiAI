@@ -117,6 +117,7 @@ class Akkiai():
     def TargetAudienceAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['finding_target_audience'],
+            output_file= 'target_audience.txt'
         )
 
     #task2
@@ -124,7 +125,8 @@ class Akkiai():
     def BuyerPersonaAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['creating_buyer_persona'],
-            input_file='persona_input.txt',
+            input_file='target_audience.txt',
+            output_file='persona_input.txt',
         )
 
     #task3
