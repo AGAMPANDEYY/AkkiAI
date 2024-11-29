@@ -117,7 +117,7 @@ class Akkiai():
     def TargetAudienceAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['finding_target_audience'],
-            output_file= 'target_audience.txt'
+            output_file= 'output/target_audience.txt'
         )
 
     #task2
@@ -125,8 +125,8 @@ class Akkiai():
     def BuyerPersonaAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['creating_buyer_persona'],
-            input_file='target_audience.txt',
-            output_file='buyer_persona.txt',
+            input_file='output/target_audience.txt',
+            output_file='output/buyer_persona.txt',
         )
 
     #task3
@@ -135,7 +135,7 @@ class Akkiai():
         return Task(
             config=self.tasks_config['creating_b2c_persona'],
             #input_file='persona_input.txt',
-            output_file='b2c_persona_output.txt'
+            output_file='output/b2c_persona_output.txt'
         )
 
     #task4
@@ -144,7 +144,7 @@ class Akkiai():
         return Task(
             config=self.tasks_config['creating_b2b_persona'],
             #input_file='persona_input.txt',
-            output_file='b2b_persona_output.txt'
+            output_file='output/b2b_persona_output.txt'
         )
  
     #task5
@@ -152,8 +152,8 @@ class Akkiai():
     def JTBDAnalysisAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysing_jtbd'],
-            input_file='buyer_persona.txt',
-            output_file='jtbd_output.txt'
+            input_file='output/buyer_persona.txt',
+            output_file='output/jtbd_output.txt'
         )
     
     #task6
@@ -161,8 +161,8 @@ class Akkiai():
     def StagesofAwarenessAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysing_stages_of_awareness'],
-            input_file='jtbd_output.txt',
-            output_file='awareness_output.txt'
+            input_file='output/jtbd_output.txt',
+            output_file='output/awareness_output.txt'
         )
 
     #task7
@@ -170,8 +170,8 @@ class Akkiai():
     def TGAnalysisAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysing_TG'],
-            input_file='awareness_output.txt',
-            output_file='tg_output.txt'
+            input_file='output/awareness_output.txt',
+            output_file='output/tg_output.txt'
         )
 
     @crew
