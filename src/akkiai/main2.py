@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
-from akkiai.crew import Akkiai
+from src.akkiai.crew import Akkiai
 from pathlib import Path
 
 app = FastAPI()
