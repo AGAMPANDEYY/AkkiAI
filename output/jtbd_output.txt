@@ -1,0 +1,20 @@
+<analysis>
+a. What is the main "job" the customer is trying to accomplish by using this product/service?
+The main job is to maintain a healthy diet and improve overall well-being while managing a demanding career in a fast-paced tech environment.
+
+b. What problem or pain point is the customer trying to solve with this product/service?
+The customer is trying to solve the difficulty of maintaining a healthy diet due to a busy work schedule, lack of convenient and nutritious meal options at work, and limited time for proper meal preparation.
+
+c. What outcome does the customer hope to achieve after using this product/service?
+The customer hopes to improve overall health and well-being, increase productivity and energy levels throughout the workday, and find convenient, healthy meal solutions that align with personal values without sacrificing career growth.
+
+d. What obstacles or frustrations does the customer experience while trying to get this job done?
+The customer experiences obstacles such as balancing multiple projects and deadlines, staying ahead of rapidly changing digital marketing trends, and managing work-life balance in a fast-paced environment. They also struggle with the lack of time for proper meal preparation and limited healthy food options at work.
+
+e. Why would a customer choose this product over alternatives?
+A customer would choose this product over alternatives because it offers a convenient, nutritious meal option that aligns with their personal values of health and sustainability. It addresses their need for a time-saving solution that doesn't compromise on nutritional quality, taste, or environmental impact, while potentially improving their productivity and overall well-being.
+</analysis>
+
+<jtbd_statement>
+When I'm a busy marketing manager juggling multiple projects and deadlines, I want to easily access nutritious and convenient meals that align with my values, so I can maintain my health and energy levels without sacrificing my career ambitions or personal well-being. Your product helps me achieve this by providing a time-saving, environmentally-friendly meal solution that boosts my productivity and supports my goal of being a forward-thinking leader in employee wellness.
+</jtbd_statement>
