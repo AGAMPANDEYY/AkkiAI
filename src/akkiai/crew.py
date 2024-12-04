@@ -15,12 +15,8 @@ class Akkiai():
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    claude_llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3",stream=True)
-    #ChatAnthropic(model_name="claude-3",streaming=True,api_key=os.getenv("ANTHROPIC_API_KEY"))
-    print(claude_llm)
+    claude_llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="anthropic/claude-3-5-sonnet-20240620",stream=True)
     
-    def llm(self):
-        return LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3",stream=True)
     @before_kickoff # Optional hook to be executed before the crew starts
     def pull_data_example(self, inputs):
         # Example of pulling data from an external API, dynamically changing the inputs
@@ -38,11 +34,8 @@ class Akkiai():
     def TargetAudienceAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['TargetAudienceAgent'],
-            # tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
-            #llm=self.claude_llm,
-            #llm='claude-2',
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
 
     #Agent2
@@ -50,11 +43,8 @@ class Akkiai():
     def BuyerPersonaAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['BuyerPersonaAgent'],
-            #llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3-5-sonnet-20240620" ),
-            #llm=self.claude_llm,
-            #llm='claude-2',
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
     
     #Agent3
@@ -62,43 +52,32 @@ class Akkiai():
     def B2CPersonaAnalystAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['B2CPersonaAnalystAgent'],
-            #llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3-5-sonnet-20240620" ),
-            #llm=self.claude_llm,
-            #llm='claude-2',
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
     #Agent4
     @agent
     def B2BPersonaAnalystAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['B2BPersonaAnalystAgent'],
-            #llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3-5-sonnet-20240620" ),
-            #llm=self.claude_llm,
-            #llm='claude-2',
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
     #Agent5
     @agent
     def JTBDAnalysisAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['JTBDAnalysisAgent'],
-            #llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3-5-sonnet-20240620" ),
-            #llm=self.claude_llm,
-            #llm='claude-2',
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
     #Agent6
     @agent
     def StagesofAwarenessAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['StagesofAwarenessAgent'],
-            #llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3-5-sonnet-20240620"),
-            #llm=self.claude_llm,
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
 
     #Agent7
@@ -106,18 +85,17 @@ class Akkiai():
     def TGAnalysisAgent(self) -> Agent:
         return Agent(
             config=self.agents_config['TGAnalysisAgent'],
-            #llm=LLM(api_key=os.getenv("ANTHROPIC_API_KEY"), model="claude-3-5-sonnet-20240620",stream=True ),
-            #llm=self.claude_llm,
-            #llm='claude-2',
-            #llm=self.llm(),
-            #verbose=True
+            llm=self.claude_llm,
+            verbose=True
         )
     #task1
     @task
     def TargetAudienceAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['finding_target_audience'],
-            output_file= 'output/target_audience.txt'
+            output_format='json',
+            output_file='output/target_audience.json',
+            human_input=True
         )
 
     #task2
@@ -125,8 +103,11 @@ class Akkiai():
     def BuyerPersonaAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['creating_buyer_persona'],
-            input_file='output/target_audience.txt',
-            output_file='output/buyer_persona.txt',
+            output_format='json',
+            input_file='output/target_audience.json',
+            output_file='output/buyer_persona.json',
+            context= [self.TargetAudienceAgent_task],
+            human_input=True
         )
 
     #task3
@@ -134,8 +115,11 @@ class Akkiai():
     def B2CPersonaAnalystAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['creating_b2c_persona'],
+            output_format='json',
             #input_file='persona_input.txt',
-            output_file='output/b2c_persona_output.txt'
+            output_file='output/b2c_persona_output.json',
+            context= [self.TargetAudienceAgent_task,self.BuyerPersonaAgent_task],
+            human_input=True
         )
 
     #task4
@@ -144,7 +128,10 @@ class Akkiai():
         return Task(
             config=self.tasks_config['creating_b2b_persona'],
             #input_file='persona_input.txt',
-            output_file='output/b2b_persona_output.txt'
+            output_format='json',
+            output_file='output/b2b_persona_output.json',
+            context= [self.TargetAudienceAgent_task,self.BuyerPersonaAgent_task],
+            human_input=True 
         )
  
     #task5
@@ -152,8 +139,11 @@ class Akkiai():
     def JTBDAnalysisAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysing_jtbd'],
-            input_file='output/buyer_persona.txt',
-            output_file='output/jtbd_output.txt'
+            output_format='json',
+            input_file='output/buyer_persona.json',
+            output_file='output/jtbd_output.json',
+            context= [self.TargetAudienceAgent_task,self.BuyerPersonaAgent_task],
+            human_input=True
         )
     
     #task6
@@ -161,8 +151,11 @@ class Akkiai():
     def StagesofAwarenessAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysing_stages_of_awareness'],
-            input_file='output/jtbd_output.txt',
-            output_file='output/awareness_output.txt'
+            output_format='json',
+            input_file='output/jtbd_output.json',
+            output_file='output/awareness_output.json',
+            context= [self.TargetAudienceAgent_task,self.BuyerPersonaAgent_task,self.JTBDAnalysisAgent_task],
+            human_input=True
         )
 
     #task7
@@ -170,8 +163,11 @@ class Akkiai():
     def TGAnalysisAgent_task(self) -> Task:
         return Task(
             config=self.tasks_config['analysing_TG'],
-            input_file='output/awareness_output.txt',
-            output_file='output/tg_output.txt'
+            output_format='json',
+            input_file='output/awareness_output.json',
+            output_file='output/tg_output.json',
+            context= [self.TargetAudienceAgent_task,self.BuyerPersonaAgent_task,self.JTBDAnalysisAgent_task,self.StagesofAwarenessAgent_task],
+            human_input=True
         )
 
     @crew

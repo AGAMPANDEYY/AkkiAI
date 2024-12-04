@@ -1,14 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.staticfiles import StaticFiles
-from src.akkiai.crew import Akkiai
+from fastapi.middleware.cors import CORSMiddleware
+#from src.akkiai.crew import Akkiai
+from crew import Akkiai
 from pathlib import Path
 
 app = FastAPI()
-
-# Define the path for the static directory using an absolute path
-#static_dir = Path(__file__).parent / "static"
-#app.mount("/static", StaticFiles(directory=str(static_dir)), name="static")
 
 # Define input models for endpoints
 class RunInputs(BaseModel):
@@ -27,15 +25,37 @@ class TestInputs(BaseModel):
     n_iterations: int
     openai_model_name: str
 
+class HumanInputs(BaseModel):
+    input_text: str
+    
+@app.post("/human_input")
+async def human_input(inputs: HumanInputs):
+    akkiai_instance = Akkiai()
+    crew_instance = akkiai_instance.crew()
+    if crew_instance is None:
+            raise ValueError("Failed to initialize Crew instance.")
+    print("Crew instance initialized successfully.")
+    return f"Received inputs for /human feedback ={inputs.input_text}"
+
 @app.post("/run")
 async def run(inputs: RunInputs):
-    
     try:
-        print("Received inputs for /run:", inputs.dict())
-        Akkiai().crew().kickoff(inputs=inputs.dict())
-        return {"message": "Crew run successfully!"}
+        akkiai_instance = Akkiai()
+        crew_instance = akkiai_instance.crew()
+        if crew_instance is None:
+            raise ValueError("Failed to initialize Crew instance.")
+        print("Crew instance initialized successfully.")
+        print(f"Received inputs for /run: BUSINESS_DETAILS={inputs.BUSINESS_DETAILS}, PRODUCT_DESCRIPTION={inputs.PRODUCT_DESCRIPTION}")
+        # Pass the inputs to the backend agent (replace with your actual logic)
+        result = crew_instance.kickoff(inputs={
+            "BUSINESS_DETAILS": inputs.BUSINESS_DETAILS,
+            "PRODUCT_DESCRIPTION": inputs.PRODUCT_DESCRIPTION
+        })
+        return {"result": result}
     except Exception as e:
+        print(f"Exception in /run: {e}")
         raise HTTPException(status_code=500, detail=f"Error running crew: {str(e)}")
+
 
 @app.post("/train")
 async def train(inputs: TrainInputs):
